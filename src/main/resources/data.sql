@@ -1,0 +1,1 @@
+INSERT INTO AIRLINE(name, initialBudget,currentBudget,homeBaseId) VALUES('name1', 100,200,10);
