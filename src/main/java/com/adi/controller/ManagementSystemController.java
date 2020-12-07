@@ -15,8 +15,8 @@ public class ManagementSystemController {
     @Autowired
     private AirlineManagementService airlineManagementService;
 
-    @PostMapping("/airline")
-    ResponseEntity<Airline> newEmployee(@RequestBody Airline newAirline) {
+    @PostMapping("/addAirline")
+    ResponseEntity<Airline> newAirline(@RequestBody Airline newAirline) {
         return new ResponseEntity<>(airlineManagementService.addNewAirline(newAirline), HttpStatus.CREATED);
 
     }
@@ -26,6 +26,12 @@ public class ManagementSystemController {
         return new ResponseEntity<>(airlineManagementService.getAirlinesWithCurrentBudget(), HttpStatus.OK);
     }
 
+
+    @PostMapping("/airline/{id}/addAircraftToAirline")
+    ResponseEntity<Airline> newAirline(@RequestBody Airline newAirline) {
+        return new ResponseEntity<>(airlineManagementService.addNewAirline(newAirline), HttpStatus.CREATED);
+
+    }
 //    // Single item
 //
 //    @GetMapping("/employees/{id}")

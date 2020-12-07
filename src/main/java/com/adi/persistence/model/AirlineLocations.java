@@ -16,8 +16,7 @@ public class AirlineLocations {
     @Column(nullable = false)
     private long locationId;
 
-    public AirlineLocations(long id, long airlineId, long locationId) {
-        this.id = id;
+    public AirlineLocations(long airlineId, long locationId) {
         this.airlineId = airlineId;
         this.locationId = locationId;
     }
@@ -28,10 +27,6 @@ public class AirlineLocations {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public long getAirlineId() {

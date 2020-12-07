@@ -19,8 +19,7 @@ public class Location {
     @Column(nullable = false)
     private String longitude;
 
-    public Location(long id, String name, String altitude, String longitude) {
-        this.id = id;
+    public Location(String name, String altitude, String longitude) {
         this.name = name;
         this.altitude = altitude;
         this.longitude = longitude;
@@ -28,10 +27,6 @@ public class Location {
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getName() {

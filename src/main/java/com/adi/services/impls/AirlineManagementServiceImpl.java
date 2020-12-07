@@ -37,7 +37,7 @@ public class AirlineManagementServiceImpl implements AirlineManagementService {
 
     private String getAirlineWithBudgetString(Airline item) {
         StringBuilder stringBuilder = new StringBuilder();
-        return stringBuilder.append("Airline: ").append(item.getName()).append(" current budget is: ").append(item.getCurrentBudget()).toString();
+        return stringBuilder.append("Airline: ").append(item.getName()).append(" id: ").append(item.getId()).append(" current budget is: ").append(item.getCurrentBudget()).toString();
     }
 
 
