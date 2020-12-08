@@ -1,11 +1,10 @@
 package com.adi.services.impls;
 
-import com.adi.configuration.errorHandling.DBException;
 import com.adi.dataModel.interfaces.NewAirlineDataModel;
-import com.adi.persistence.AirlineRepositoryGateway;
+import com.adi.persistence.gateway.interfaces.AirlineRepositoryGateway;
+import com.adi.persistence.gateway.interfaces.LocationRepositoryGateway;
 import com.adi.persistence.model.Airline;
 import com.adi.persistence.model.AirlineLocations;
-import com.adi.persistence.repo.AirlineLocationsRepository;
 import com.adi.services.interfaces.AirlineManagementService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.adi.configuration.errorHandling.ErrorConstants.ERROR_SAVING_TO_DB;
 
 @Service
 public class AirlineManagementServiceImpl implements AirlineManagementService {
@@ -26,18 +23,12 @@ public class AirlineManagementServiceImpl implements AirlineManagementService {
     private AirlineRepositoryGateway airlineRepositoryGateway;
 
     @Autowired
-    private AirlineLocationsRepository airlineLocationsRepository;
+    private LocationRepositoryGateway locationRepositoryGateway;
 
     @Override
     public Airline addNewAirline(NewAirlineDataModel airlineDataModel) {
-        AirlineLocations airlineLocationsResult;
         Airline airlineResult = airlineRepositoryGateway.saveAirline(new Airline(airlineDataModel.getAirlineName(), airlineDataModel.getInitialBudget(), airlineDataModel.getInitialBudget(), airlineDataModel.getHomeBaseName()));
-        try {
-            airlineLocationsResult = airlineLocationsRepository.save(new AirlineLocations(airlineResult.getId(), airlineResult.getName(), airlineDataModel.getHomeBaseName(), airlineDataModel.getAltitude(), airlineDataModel.getLongitude()));
-        } catch (Exception e) {
-            throw new DBException(ERROR_SAVING_TO_DB);
-        }
-        LOGGER.info("updated AirlineLocation: {}, updated Airline: {}", airlineLocationsResult, airlineResult);
+        locationRepositoryGateway.save(new AirlineLocations(airlineResult.getId(), airlineResult.getName(), airlineDataModel.getHomeBaseName(), airlineDataModel.getAltitude(), airlineDataModel.getLongitude()));
         return airlineResult;
     }
 

@@ -1,11 +1,9 @@
 package com.adi.services.impls;
 
-import com.adi.configuration.errorHandling.EntityNotFoundException;
 import com.adi.dataModel.interfaces.NewAirlineAircraftDataModel;
-import com.adi.persistence.AirlineRepositoryGateway;
+import com.adi.persistence.gateway.interfaces.AirlineRepositoryGateway;
 import com.adi.persistence.model.AirlineAircrafts;
 import com.adi.persistence.repo.AirlineAircarftsRepository;
-import com.adi.persistence.repo.AirlineRepository;
 import com.adi.services.interfaces.AddAircraftToAirlineService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
