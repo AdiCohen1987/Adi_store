@@ -37,6 +37,14 @@ public class AirlineLocations {
         this.longitude = longitude;
     }
 
+    public String getAirlineName() {
+        return airlineName;
+    }
+
+    public void setAirlineName(String airlineName) {
+        this.airlineName = airlineName;
+    }
+
     public long getId() {
         return id;
     }

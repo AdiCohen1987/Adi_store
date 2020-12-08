@@ -1,8 +1,8 @@
-package com.adi.persistence.gateway.impl;
+package com.adi.persistence.gateways.impl;
 
 import com.adi.configuration.errorHandling.DBException;
 import com.adi.configuration.errorHandling.EntityNotFoundException;
-import com.adi.persistence.gateway.interfaces.AircraftRepositoryGateway;
+import com.adi.persistence.gateways.interfaces.AircraftRepositoryGateway;
 import com.adi.persistence.model.AirlineAircrafts;
 import com.adi.persistence.repo.AirlineAircarftsRepository;
 import com.adi.services.impls.SellAircraftServiceImpl;
@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 import static com.adi.configuration.errorHandling.ErrorConstants.ERROR_RETRIEVING_FROM_DB;
@@ -30,13 +31,27 @@ public class AircraftRepositoryGatewayImpl implements AircraftRepositoryGateway 
         Optional<AirlineAircrafts> optionalAirlineAircraft;
         try {
             optionalAirlineAircraft = airlineAircarftsRepository.findById(aircraftId);
-            if (optionalAirlineAircraft.isPresent()) {
-                throw new EntityNotFoundException("Aircraft with id: " + aircraftId + "not found");
+            if (!optionalAirlineAircraft.isPresent()) {
+                throw new EntityNotFoundException("Aircraft with id: " + aircraftId + " not found");
             }
         } catch (Exception e) {
             throw new DBException(ERROR_RETRIEVING_FROM_DB + " " + e.getLocalizedMessage());
         }
         return optionalAirlineAircraft.get();
+    }
+
+    @Override
+    public List<AirlineAircrafts> getAirlineAircrafts(Long airlineId) {
+        List<AirlineAircrafts> airlineAircrafts;
+        try {
+            airlineAircrafts = airlineAircarftsRepository.findAllByAirlineId(airlineId);
+            if (null == airlineAircrafts) {
+                throw new EntityNotFoundException("Airline with id: " + airlineId + " ,no Aircrafts found");
+            }
+        } catch (Exception e) {
+            throw new DBException(ERROR_RETRIEVING_FROM_DB + " " + e.getLocalizedMessage());
+        }
+        return airlineAircrafts;
     }
 
     @Override

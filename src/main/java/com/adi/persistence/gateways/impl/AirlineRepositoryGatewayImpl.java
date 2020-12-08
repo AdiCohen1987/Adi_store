@@ -1,10 +1,9 @@
-package com.adi.persistence.gateway.impl;
+package com.adi.persistence.gateways.impl;
 
 import com.adi.configuration.errorHandling.DBException;
 import com.adi.configuration.errorHandling.EntityNotFoundException;
-import com.adi.persistence.gateway.interfaces.AirlineRepositoryGateway;
+import com.adi.persistence.gateways.interfaces.AirlineRepositoryGateway;
 import com.adi.persistence.model.Airline;
-import com.adi.persistence.repo.AirlineAircarftsRepository;
 import com.adi.persistence.repo.AirlineRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +24,11 @@ public class AirlineRepositoryGatewayImpl implements AirlineRepositoryGateway {
         Optional<Airline> airline;
         try {
             airline = airlineRepository.findById(airlineId);
-            if (airline.isPresent()) {
-                throw new EntityNotFoundException("Airline with id: " + airlineId + "not found");
+            if (!airline.isPresent()) {
+                throw new EntityNotFoundException("Airline with id: " + airlineId + " not found");
             }
         } catch (Exception e) {
-            throw new DBException(ERROR_RETRIEVING_FROM_DB+ " " + e.getLocalizedMessage());
+            throw new DBException(ERROR_RETRIEVING_FROM_DB + " " + e.getLocalizedMessage());
         }
         return airline.get();
     }
@@ -40,7 +39,7 @@ public class AirlineRepositoryGatewayImpl implements AirlineRepositoryGateway {
         try {
             res = airlineRepository.save(airline);
         } catch (Exception e) {
-            throw new DBException(ERROR_SAVING_TO_DB+ " " + e.getLocalizedMessage());
+            throw new DBException(ERROR_SAVING_TO_DB + " " + e.getLocalizedMessage());
         }
         return res;
     }
@@ -51,7 +50,7 @@ public class AirlineRepositoryGatewayImpl implements AirlineRepositoryGateway {
         try {
             airlineIterable = airlineRepository.findAll();
         } catch (Exception e) {
-            throw new DBException(ERROR_RETRIEVING_FROM_DB+ " " + e.getLocalizedMessage());
+            throw new DBException(ERROR_RETRIEVING_FROM_DB + " " + e.getLocalizedMessage());
         }
         return airlineIterable;
     }

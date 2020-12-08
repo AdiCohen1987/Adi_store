@@ -1,4 +1,4 @@
-package com.adi.persistence.gateway.interfaces;
+package com.adi.persistence.gateways.interfaces;
 
 import com.adi.persistence.model.Airline;
 

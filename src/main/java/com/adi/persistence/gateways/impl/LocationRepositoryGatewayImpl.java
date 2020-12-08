@@ -1,7 +1,7 @@
-package com.adi.persistence.gateway.impl;
+package com.adi.persistence.gateways.impl;
 
 import com.adi.configuration.errorHandling.DBException;
-import com.adi.persistence.gateway.interfaces.LocationRepositoryGateway;
+import com.adi.persistence.gateways.interfaces.LocationRepositoryGateway;
 import com.adi.persistence.model.AirlineLocations;
 import com.adi.persistence.repo.AirlineLocationsRepository;
 import com.adi.services.impls.SellAircraftServiceImpl;
@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.adi.configuration.errorHandling.ErrorConstants.ERROR_RETRIEVING_FROM_DB;
@@ -39,11 +40,25 @@ public class LocationRepositoryGatewayImpl implements LocationRepositoryGateway 
     public List<AirlineLocations> getDistinctByAirlineId(Long airlineId) {
         List<AirlineLocations> airlineLocationsRes;
         try {
-            airlineLocationsRes = airlineLocationsRepository.getDistinctByAirlineId(airlineId);
+            airlineLocationsRes = airlineLocationsRepository.getDistinctByAirlineIdIs(airlineId);
         } catch (Exception e) {
             throw new DBException(ERROR_RETRIEVING_FROM_DB + " " + e.getLocalizedMessage());
         }
         LOGGER.info("updated AirlineLocation: {}", airlineLocationsRes);
         return airlineLocationsRes;
     }
+
+
+    @Override
+    public AirlineLocations getByAirlineIdAndLocationName(Long airlineId, String locationName) {
+        AirlineLocations airlineLocationRes;
+        try {
+            airlineLocationRes = airlineLocationsRepository.getByAirlineIdAndLocationName(airlineId,locationName);
+        } catch (Exception e) {
+            throw new DBException(ERROR_RETRIEVING_FROM_DB + " " + e.getLocalizedMessage());
+        }
+        LOGGER.info("get AirlineLocation: {}", airlineLocationRes);
+        return airlineLocationRes;
+    }
+
 }

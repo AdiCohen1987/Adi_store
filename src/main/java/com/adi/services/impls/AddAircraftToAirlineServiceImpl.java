@@ -1,7 +1,7 @@
 package com.adi.services.impls;
 
 import com.adi.dataModel.interfaces.NewAirlineAircraftDataModel;
-import com.adi.persistence.gateway.interfaces.AirlineRepositoryGateway;
+import com.adi.persistence.gateways.interfaces.AirlineRepositoryGateway;
 import com.adi.persistence.model.AirlineAircrafts;
 import com.adi.persistence.repo.AirlineAircarftsRepository;
 import com.adi.services.interfaces.AddAircraftToAirlineService;

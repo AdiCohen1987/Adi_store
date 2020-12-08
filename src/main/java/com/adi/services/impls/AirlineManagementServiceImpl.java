@@ -1,8 +1,8 @@
 package com.adi.services.impls;
 
 import com.adi.dataModel.interfaces.NewAirlineDataModel;
-import com.adi.persistence.gateway.interfaces.AirlineRepositoryGateway;
-import com.adi.persistence.gateway.interfaces.LocationRepositoryGateway;
+import com.adi.persistence.gateways.interfaces.AirlineRepositoryGateway;
+import com.adi.persistence.gateways.interfaces.LocationRepositoryGateway;
 import com.adi.persistence.model.Airline;
 import com.adi.persistence.model.AirlineLocations;
 import com.adi.services.interfaces.AirlineManagementService;
