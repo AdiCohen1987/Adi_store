@@ -8,8 +8,10 @@ import com.adi.services.impls.SellAircraftServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.LockModeType;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class LocationRepositoryGatewayImpl implements LocationRepositoryGateway 
     private AirlineLocationsRepository airlineLocationsRepository;
 
     @Override
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
     public AirlineLocations save(AirlineLocations airlineLocations) {
         AirlineLocations airlineLocationsResult;
         try {
