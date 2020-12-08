@@ -14,10 +14,10 @@ public class AirlineAircrafts {
     private long airlineId;
 
     @Column(nullable = false)
-    private String name;
+    private String aircraftName;
 
     @Column(nullable = false)
-    private int price;
+    private double price;
 
     @Column(nullable = false)
     private int maxDistance;
@@ -28,9 +28,9 @@ public class AirlineAircrafts {
     @Column(nullable = false)
     private int serviceYear;
 
-    public AirlineAircrafts(long airlineId, String name, int price, int maxDistance, int serviceMonth, int serviceYear) {
+    public AirlineAircrafts(long airlineId, String aircraftName, int price, int maxDistance, int serviceMonth, int serviceYear) {
         this.airlineId = airlineId;
-        this.name = name;
+        this.aircraftName = aircraftName;
         this.price = price;
         this.maxDistance = maxDistance;
         this.serviceMonth = serviceMonth;
@@ -53,19 +53,19 @@ public class AirlineAircrafts {
         this.airlineId = airlineId;
     }
 
-    public String getName() {
-        return name;
+    public String getAircraftName() {
+        return aircraftName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAircraftName(String name) {
+        this.aircraftName = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
@@ -104,11 +104,11 @@ public class AirlineAircrafts {
                 maxDistance == that.maxDistance &&
                 serviceMonth == that.serviceMonth &&
                 serviceYear == that.serviceYear &&
-                name.equals(that.name);
+                aircraftName.equals(that.aircraftName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, airlineId, name, price, maxDistance, serviceMonth, serviceYear);
+        return Objects.hash(id, airlineId, aircraftName, price, maxDistance, serviceMonth, serviceYear);
     }
 }

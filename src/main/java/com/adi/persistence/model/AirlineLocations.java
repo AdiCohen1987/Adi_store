@@ -14,20 +14,33 @@ public class AirlineLocations {
     private long airlineId;
 
     @Column(nullable = false)
-    private long locationId;
+    private String airlineName;
 
-    public AirlineLocations(long airlineId, long locationId) {
-        this.airlineId = airlineId;
-        this.locationId = locationId;
-    }
+    @Column(nullable = false)
+    private String locationName;
+
+    @Column(nullable = false)
+    private double altitude;
+
+    @Column(nullable = false)
+    private double longitude;
 
     public AirlineLocations() {
         super();
     }
 
+    public AirlineLocations(long airlineId,String airlineName, String locationName, double altitude, double longitude) {
+        this.airlineId = airlineId;
+        this.airlineName = airlineName;
+        this.locationName = locationName;
+        this.altitude = altitude;
+        this.longitude = longitude;
+    }
+
     public long getId() {
         return id;
     }
+
 
     public long getAirlineId() {
         return airlineId;
@@ -37,12 +50,20 @@ public class AirlineLocations {
         this.airlineId = airlineId;
     }
 
-    public long getLocationId() {
-        return locationId;
+    public double getAltitude() {
+        return altitude;
     }
 
-    public void setLocationId(long locationId) {
-        this.locationId = locationId;
+    public void setAltitude(double altitude) {
+        this.altitude = altitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
     @Override
@@ -52,11 +73,22 @@ public class AirlineLocations {
         AirlineLocations that = (AirlineLocations) o;
         return id == that.id &&
                 airlineId == that.airlineId &&
-                locationId == that.locationId;
+                airlineName.equals(that.airlineName) &&
+                locationName.equals(that.locationName) &&
+                Double.compare(that.altitude, altitude) == 0 &&
+                Double.compare(that.longitude, longitude) == 0;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, airlineId, locationId);
+        return Objects.hash(id, airlineId, altitude, longitude);
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 }

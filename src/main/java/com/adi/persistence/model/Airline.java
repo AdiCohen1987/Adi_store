@@ -11,26 +11,27 @@ public class Airline {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false,unique = true)
     private String name;
 
     @Column(nullable = false)
-    private int initialBudget;
+    private double initialBudget;
 
     @Column(nullable = false)
-    private int currentBudget;
+    private double currentBudget;
 
     @Column(nullable = false)
-    private Long homeBaseId;
+    private String homeBaseName;
 
     public Airline() {
         super();
     }
 
-    public Airline(String name, int initialBudget, Long homeBaseId) {
+    public Airline(String name, double initialBudget,double currentBudget, String homeBaseId) {
         this.name = name;
         this.initialBudget = initialBudget;
-        this.homeBaseId = homeBaseId;
+        this.currentBudget = currentBudget;
+        this.homeBaseName = homeBaseId;
     }
 
     public long getId() {
@@ -45,20 +46,20 @@ public class Airline {
         this.name = name;
     }
 
-    public int getInitialBudget() {
+    public double getInitialBudget() {
         return initialBudget;
     }
 
-    public void setInitialBudget(int initialBudget) {
+    public void setInitialBudget(double initialBudget) {
         this.initialBudget = initialBudget;
     }
 
-    public Long getHomeBaseId() {
-        return homeBaseId;
+    public String getHomeBaseName() {
+        return homeBaseName;
     }
 
-    public void setHomeBaseId(Long homeBaseId) {
-        this.homeBaseId = homeBaseId;
+    public void setHomeBaseName(String homeBaseName) {
+        this.homeBaseName = homeBaseName;
     }
 
     @Override
@@ -68,7 +69,8 @@ public class Airline {
         Airline airline = (Airline) o;
         return id == airline.id &&
                 initialBudget == airline.initialBudget &&
-                name.equals(airline.name);
+                name.equals(airline.name) &&
+                homeBaseName.equals(airline.homeBaseName);
     }
 
     @Override
@@ -76,11 +78,11 @@ public class Airline {
         return Objects.hash(id, name, initialBudget);
     }
 
-    public int getCurrentBudget() {
+    public double getCurrentBudget() {
         return currentBudget;
     }
 
-    public void setCurrentBudget(int currentBudget) {
+    public void setCurrentBudget(double currentBudget) {
         this.currentBudget = currentBudget;
     }
 }
