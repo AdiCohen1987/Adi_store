@@ -1,7 +1,12 @@
 package com.adi.controller;
 
+import com.adi.dataModel.impl.NewAirlineAircraftDataModelImpl;
+import com.adi.dataModel.impl.NewAirlineDataModelImpl;
+import com.adi.dataModel.interfaces.SellAircraftDataModel;
 import com.adi.persistence.model.Airline;
-import com.adi.services.interfaces.AirlineManagementService;
+import com.adi.persistence.model.AirlineAircrafts;
+import com.adi.persistence.model.AirlineLocations;
+import com.adi.services.interfaces.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,50 +20,53 @@ public class ManagementSystemController {
     @Autowired
     private AirlineManagementService airlineManagementService;
 
-    @PostMapping("/addAirline")
-    ResponseEntity<Airline> newAirline(@RequestBody Airline newAirline) {
-        return new ResponseEntity<>(airlineManagementService.addNewAirline(newAirline), HttpStatus.CREATED);
+    @Autowired
+    private SellAircraftService sellAircraftService;
 
+    @Autowired
+    private AddAircraftToAirlineService addAircraftToAirline;
+
+    @Autowired
+    private LocationService locationService;
+
+
+    @PostMapping("/addAirline")
+    public ResponseEntity<Airline> newAirline(@RequestBody NewAirlineDataModelImpl newAirline) {
+        Airline airline = airlineManagementService.addNewAirline(newAirline);
+        return new ResponseEntity<>(airline, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/airline/{id}/addNewLocation")
+    public ResponseEntity<AirlineLocations> newLocation(@RequestBody AirlineLocations airlineLocation, @PathVariable("id") Long airlineId) {
+        AirlineLocations result = locationService.addLocation(airlineLocation,airlineId);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+    }
+
+    @PostMapping("/airline/{id}/getLocationsByAirline")
+    public ResponseEntity<List<AirlineLocations>> newLocation(@PathVariable("id") Long airlineId) {
+        List<AirlineLocations> result = locationService.getAllLocationsByAirline(airlineId);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @GetMapping("/airlines")
-    ResponseEntity<List<String>> getAirlinesWithCurrentBudget() {
-        return new ResponseEntity<>(airlineManagementService.getAirlinesWithCurrentBudget(), HttpStatus.OK);
+    public ResponseEntity<List<String>> getAirlinesWithCurrentBudget() {
+        List<String> airlinesWithCurrentBudget = airlineManagementService.getAirlinesWithCurrentBudget();
+        return new ResponseEntity<>(airlinesWithCurrentBudget, HttpStatus.OK);
     }
 
 
     @PostMapping("/airline/{id}/addAircraftToAirline")
-    ResponseEntity<Airline> newAirline(@RequestBody Airline newAirline) {
-        return new ResponseEntity<>(airlineManagementService.addNewAirline(newAirline), HttpStatus.CREATED);
+    public ResponseEntity<AirlineAircrafts> addAircraftToAirline(@RequestBody NewAirlineAircraftDataModelImpl airlineAircraftDataModel, @PathVariable("id") Long airlineIid) {
+        AirlineAircrafts airlineAircrafts = addAircraftToAirline.addAircraftToAirline(airlineAircraftDataModel, airlineIid);
+        return new ResponseEntity<>(airlineAircrafts, HttpStatus.OK);
+    }
+
+    @PostMapping("/sellAircraft")
+    public ResponseEntity<SellAircraftDataModel> sellAircraft(@RequestParam Long sellerAirlineId, @RequestParam Long buyerAirlineId, @RequestParam Long aircraftId) {
+        SellAircraftDataModel sellAircraftDataModel = sellAircraftService.sellAircraft(sellerAirlineId, buyerAirlineId, aircraftId);
+        return new ResponseEntity<>(sellAircraftDataModel, HttpStatus.OK);
 
     }
-//    // Single item
-//
-//    @GetMapping("/employees/{id}")
-//    Employee one(@PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .orElseThrow(() -> new EmployeeNotFoundException(id));
-//    }
-//
-//    @PutMapping("/employees/{id}")
-//    Employee replaceEmployee(@RequestBody Employee newEmployee, @PathVariable Long id) {
-//
-//        return repository.findById(id)
-//                .map(employee -> {
-//                    employee.setName(newEmployee.getName());
-//                    employee.setRole(newEmployee.getRole());
-//                    return repository.save(employee);
-//                })
-//                .orElseGet(() -> {
-//                    newEmployee.setId(id);
-//                    return repository.save(newEmployee);
-//                });
-//    }
-//
-//    @DeleteMapping("/employees/{id}")
-//    void deleteEmployee(@PathVariable Long id) {
-//        repository.deleteById(id);
-//    }
+
 }
 
