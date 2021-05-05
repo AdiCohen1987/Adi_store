@@ -1,0 +1,20 @@
+package com.adi.services.impls;
+
+import com.adi.persistence.gateways.interfaces.CatalogItemRepositoryGateway;
+import com.adi.persistence.model.CatalogItem;
+import com.adi.services.interfaces.GetItemFromCatalogService;
+import com.adi.services.interfaces.ReplaceItemInCatalogService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class GetItemFromCatalogServiceImpl implements GetItemFromCatalogService {
+
+    @Autowired
+    private CatalogItemRepositoryGateway catalogItemRepositoryGateway;
+
+    @Override
+    public CatalogItem retrieve(Long itemId) {
+        return catalogItemRepositoryGateway.findById(itemId);
+    }
+}

@@ -33,6 +33,18 @@ public class ExceptionHandling {
     @ExceptionHandler(value = {DBException.class})
     public ResponseEntity<Object> handleDBException(Exception ex) {
         LOGGER.error("Exception: ", ex.getMessage());
-        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(value = {OutOfStockException.class})
+    public ResponseEntity<Object> handleOutOfStockException(Exception ex) {
+        LOGGER.error("Exception: ", ex.getMessage());
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(value = {UnAuthorizedException.class})
+    public ResponseEntity<Object> handleUnAuthorizedExceptionException(Exception ex) {
+        LOGGER.error("Exception: ", ex.getMessage());
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
     }
 }

@@ -11,8 +11,8 @@
     <groupId>com.example</groupId>
     <artifactId>demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>airlines managment system</name>
-    <description>Airlines managment system</description>
+    <name>Store</name>
+    <description>Store system</description>
 
     <properties>
         <java.version>1.8</java.version>
